@@ -18,7 +18,7 @@ def fetch_elsevier_papers(api_key, query, count=5, since_date=None):
         "query": scopus_query,
         "count": count,
         "sort": "-pubdate",
-        "view": "STANDARD"
+        "view": "COMPLETE"
     }
 
     response = requests.get(url, headers=headers, params=params)
