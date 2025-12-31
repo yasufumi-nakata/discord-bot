@@ -1,0 +1,67 @@
+[2025-12-30 17:14:33] [INFO    ] discord.client: logging in using static token
+[2025-12-30 17:14:34] [INFO    ] discord.gateway: Shard ID None has connected to Gateway (Session ID: a48925ef5a4dd0c191cbb07a606bed7c).
+arXiv Bot logged in as scopus_gpt4#8017
+[2025-12-30 17:14:39] [ERROR   ] discord.ext.commands.bot: Ignoring exception in command None
+discord.ext.commands.errors.CommandNotFound: Command "scopus" is not found
+arXiv query: EE
+Processing 1/10
+arXiv query: EEG
+Processing 1/10
+Processing 2/10
+Processing 2/10
+Processing 3/10
+Processing 3/10
+Processing 4/10
+Processing 4/10
+Processing 5/10
+Processing 5/10
+Processing 6/10
+Processing 6/10
+Processing 7/10
+Processing 7/10
+Processing 8/10
+Processing 8/10
+Processing 9/10
+Processing 9/10
+Processing 10/10
+Processing 10/10
+[2025-12-30 20:06:34] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session a48925ef5a4dd0c191cbb07a606bed7c.
+[2025-12-30 21:57:26] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session a48925ef5a4dd0c191cbb07a606bed7c.
+[2025-12-31 01:38:34] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session a48925ef5a4dd0c191cbb07a606bed7c.
+[2025-12-31 05:23:37] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session a48925ef5a4dd0c191cbb07a606bed7c.
+[2025-12-31 08:20:52] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session a48925ef5a4dd0c191cbb07a606bed7c.
+[2025-12-31 08:59:47] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session a48925ef5a4dd0c191cbb07a606bed7c.
+[2025-12-31 10:49:58] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session a48925ef5a4dd0c191cbb07a606bed7c.
+[2025-12-31 11:19:47] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session a48925ef5a4dd0c191cbb07a606bed7c.
+[2025-12-31 14:31:51] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session a48925ef5a4dd0c191cbb07a606bed7c.
+[2025-12-31 17:05:22] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session a48925ef5a4dd0c191cbb07a606bed7c.
+[2025-12-31 17:37:39] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session a48925ef5a4dd0c191cbb07a606bed7c.
+[2025-12-31 18:12:14] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session a48925ef5a4dd0c191cbb07a606bed7c.
+[2025-12-31 19:45:06] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session a48925ef5a4dd0c191cbb07a606bed7c.
+[2025-12-31 20:23:23] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session a48925ef5a4dd0c191cbb07a606bed7c.
+[2025-12-31 20:55:49] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session a48925ef5a4dd0c191cbb07a606bed7c.
+[2025-12-31 22:29:37] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session a48925ef5a4dd0c191cbb07a606bed7c.
+arXiv query: Random Quantum Circuits
+Processing 1/10
+Processing 2/10
+Processing 3/10
+[2026-01-01 01:19:38] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session a48925ef5a4dd0c191cbb07a606bed7c.
+Processing 4/10
+Processing 5/10
+arXiv query: EEG
+Processing 1/10
+Processing 6/10
+Processing 2/10
+Processing 7/10
+Processing 3/10
+Processing 8/10
+Processing 4/10
+Processing 9/10
+Processing 5/10
+Processing 10/10
+Processing 6/10
+Processing 7/10
+Processing 8/10
+Processing 9/10
+Processing 10/10
+[2026-01-01 04:38:11] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session a48925ef5a4dd0c191cbb07a606bed7c.

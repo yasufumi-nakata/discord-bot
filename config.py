@@ -16,8 +16,8 @@ LM_STUDIO_MODEL = "local-model"  # Default or specific model name if known
 # "brain waves" or "EEG" related keywords
 SEARCH_QUERY = '("brain waves" OR "EEG" OR "brain-computer interface" OR "electroencephalography")'
 
-# Fetch interval (seconds) - Default: 30 minutes (1800 seconds)
-FETCH_INTERVAL_SECONDS = 1800
+# Fetch interval (seconds) - Default: 1 day (86400 seconds)
+FETCH_INTERVAL_SECONDS = 86400
 
 # Path to store notified paper IDs to avoid duplicates
 SENT_PAPERS_LOG = "sent_papers.json"
