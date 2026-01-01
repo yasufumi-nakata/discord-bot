@@ -1,7 +1,7 @@
 import os
 import json
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
 import config
 import llm_service
 
@@ -18,67 +18,68 @@ def save_sent_papers(sent_ids):
     with open(config.SENT_PAPERS_LOG, 'w') as f:
         json.dump(list(sent_ids), f)
 
-def get_last_check_time():
-    if os.path.exists(config.LAST_CHECK_FILE):
-        with open(config.LAST_CHECK_FILE, 'r') as f:
-            try:
-                ts = f.read().strip()
-                return datetime.fromisoformat(ts)
-            except:
-                pass
-    return None
-
-def save_last_check_time(dt):
-    with open(config.LAST_CHECK_FILE, 'w') as f:
-        f.write(dt.isoformat())
-
-def run_service():
-    print(f"--- Brain Wave Paper Service Started (Interval: {config.FETCH_INTERVAL_SECONDS}s) ---")
+def run_service(test_mode=False):
+    print(f"--- Brain Wave Paper Service (Yesterday's Filter) ---")
 
     while True:
         sent_ids = load_sent_papers()
-        last_check = get_last_check_time()
         current_run_time = datetime.now()
+        yesterday = current_run_time - timedelta(days=1)
+        yesterday_date = yesterday.date()
 
         all_papers = []
 
-        print(f"[{current_run_time.strftime('%Y-%m-%d %H:%M:%S')}] Checking papers since {last_check or 'the beginning'}...")
+        print(f"[{current_run_time.strftime('%Y-%m-%d %H:%M:%S')}] Target date: {yesterday_date}")
 
-        # Fetch from arXiv
+        # arXiv
         print("arXiv fetching...")
-        arxiv_papers = llm_service.fetch_arxiv(config.SEARCH_QUERY, since_date=last_check)
-        all_papers.extend(arxiv_papers)
+        arxiv_results = llm_service.fetch_arxiv(config.SEARCH_QUERY, max_results=50)
+        arxiv_yesterday = [p for p in arxiv_results if p['pub_date_obj'].date() == yesterday_date]
 
-        # Fetch from Elsevier
+        if test_mode and not arxiv_yesterday and arxiv_results:
+            print("Test Mode: No papers for yesterday on arXiv, using the latest 3 for demonstration.")
+            all_papers.extend(arxiv_results[:3])
+        else:
+            all_papers.extend(arxiv_yesterday)
+
+        # Elsevier
         print("Elsevier fetching...")
-        elsevier_papers = llm_service.fetch_elsevier(config.ELSEVIER_API_KEY, config.SEARCH_QUERY, since_date=last_check)
-        all_papers.extend(elsevier_papers)
+        elsevier_results = llm_service.fetch_elsevier(config.ELSEVIER_API_KEY, config.SEARCH_QUERY, count=50)
+        elsevier_yesterday = [p for p in elsevier_results if p['pub_date_obj'].date() == yesterday_date]
+
+        if test_mode and not elsevier_yesterday and elsevier_results:
+            print("Test Mode: No papers for yesterday on Elsevier, using the latest 3 for demonstration.")
+            all_papers.extend(elsevier_results[:3])
+        else:
+            all_papers.extend(elsevier_yesterday)
 
         new_count = 0
         for paper in all_papers:
-            if paper['id'] in sent_ids:
+            if paper['id'] in sent_ids and not test_mode:
                 continue
 
-            print(f"New paper found: {paper['title']} ({paper['source']})")
-
-            # Detailed summary
+            print(f"Processing: {paper['title']} ({paper['source']})")
             summary_result = llm_service.get_detailed_summary(paper)
 
-            # Send to Discord
             if llm_service.send_to_discord(paper, summary_result):
                 sent_ids.add(paper['id'])
                 new_count += 1
-                time.sleep(2) # Prevent rate limiting
+                time.sleep(2)
 
-        if new_count == 0:
-            print("No new papers found. Sending 'No updates' notification...")
-            llm_service.send_simple_message_to_discord("更新ないです")
+        if new_count == 0 and not test_mode:
+            print("No new papers found for yesterday.")
+            # llm_service.send_simple_message_to_discord(f"{yesterday_date}の更新はないです")
 
         save_sent_papers(sent_ids)
-        save_last_check_time(current_run_time)
-        print(f"Iteration complete. Notified: {new_count}. Sleeping...")
 
+        if test_mode:
+            print("Test run complete.")
+            break
+
+        print(f"Sleeping for {config.FETCH_INTERVAL_SECONDS}s...")
         time.sleep(config.FETCH_INTERVAL_SECONDS)
 
 if __name__ == "__main__":
-    run_service()
+    import sys
+    is_test = "--test" in sys.argv
+    run_service(test_mode=is_test)

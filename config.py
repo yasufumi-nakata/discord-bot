@@ -9,12 +9,12 @@ DISCORD_WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK_URL")
 ELSEVIER_API_KEY = os.getenv("ELSEVIER_API_KEY")
 
 # LM Studio Configuration
-LM_STUDIO_BASE_URL = "http://localhost:1234/v1"
-LM_STUDIO_MODEL = "local-model"  # Default or specific model name if known
+LM_STUDIO_BASE_URL = os.getenv("LM_STUDIO_BASE_URL", "http://localhost:1234/v1")
+LM_STUDIO_MODEL = os.getenv("LM_STUDIO_MODEL", "local-model")
 
 # Search Configuration
 # "brain waves" or "EEG" related keywords
-SEARCH_QUERY = '("brain waves" OR "EEG" OR "brain-computer interface" OR "electroencephalography")'
+SEARCH_QUERY = 'EEG OR "brain waves" OR "brain-computer interface"'
 
 # Fetch interval (seconds) - Default: 1 day (86400 seconds)
 FETCH_INTERVAL_SECONDS = 86400

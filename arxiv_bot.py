@@ -74,7 +74,7 @@ async def query(ctx, *args):
     query_arg = ' '.join(args)
     # Replicate ti: format if needed, but here we search broadly like the sample
     print(f"arXiv query: {query_arg}")
-    await ctx.send(f"arXivで「{query_arg}」を検索しています... (最新100件から10件抽選)")
+    await ctx.send(f"arXivで「{query_arg}」を検索しています... (最新100件から最大10件抽選)")
 
     try:
         papers = llm_service.fetch_arxiv(query_arg, max_results=100)

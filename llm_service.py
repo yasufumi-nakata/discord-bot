@@ -170,8 +170,9 @@ URL: {paper['url']}
         )
         content = response.choices[0].message.content
 
-        # Clean <think> tags
-        content = re.sub(r'<think>.*?</think>', '', content, flags=re.DOTALL).strip()
+        # Clean thinking/thought tags
+        content = re.sub(r'<(think|thought)>.*?</\1>', '', content, flags=re.DOTALL)
+        content = re.sub(r'\[(thought|thinking)\].*?\[/\1\]', '', content, flags=re.DOTALL).strip()
         return content
     except Exception as e:
         return f"LLM処理エラー: {e}"

@@ -73,7 +73,7 @@ async def query(ctx, *args):
 
     query_arg = ' '.join(args)
     print(f"Scopus query: {query_arg}")
-    await ctx.send(f"Scopusで「{query_arg}」を検索しています...")
+    await ctx.send(f"Scopusで「{query_arg}」を検索しています... (最新100件から最大3件抽選)")
 
     try:
         # Fetch status
@@ -83,15 +83,17 @@ async def query(ctx, *args):
             await ctx.send(f"「{query_arg}」に一致する論文は見つかりませんでした。")
             return
 
-        # Randomly sample 1 (like sample/dbot.py)
-        paper = random.choice(papers)
+        # Randomly sample up to 3
+        num_to_sample = min(3, len(papers))
+        selected_papers = random.sample(papers, k=num_to_sample)
 
-        print(f"Processing Scopus paper: {paper['title']}")
-        await ctx.send(f"Processing Scopus result: {paper['title']}")
+        for i, paper in enumerate(selected_papers):
+            print(f"Processing Scopus paper {i+1}/{num_to_sample}: {paper['title']}")
+            await ctx.send(f"Processing Scopus result {i+1}/{num_to_sample}: {paper['title']}")
 
         try:
             summary = await get_summary(paper)
-            message = f"**{query_arg}の論文です！**\n"
+            message = f"**{query_arg}の論文です！ {i+1}/{num_to_sample}**\n"
             message += f"発行日: {paper['published']}\n{paper['url']}\n\n{summary}"
 
             # Length check
