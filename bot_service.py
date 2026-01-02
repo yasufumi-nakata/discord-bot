@@ -31,20 +31,10 @@ def run_service(test_mode=False):
 
         print(f"[{current_run_time.strftime('%Y-%m-%d %H:%M:%S')}] Target date: {yesterday_date}")
 
-        # arXiv
-        print("arXiv fetching...")
-        arxiv_results = llm_service.fetch_arxiv(config.SEARCH_QUERY, max_results=50)
-        arxiv_yesterday = [p for p in arxiv_results if p['pub_date_obj'].date() == yesterday_date]
-
-        if test_mode and not arxiv_yesterday and arxiv_results:
-            print("Test Mode: No papers for yesterday on arXiv, using the latest 3 for demonstration.")
-            all_papers.extend(arxiv_results[:3])
-        else:
-            all_papers.extend(arxiv_yesterday)
 
         # Elsevier
         print("Elsevier fetching...")
-        elsevier_results = llm_service.fetch_elsevier(config.ELSEVIER_API_KEY, config.SEARCH_QUERY, count=50)
+        elsevier_results = llm_service.fetch_elsevier(config.ELSEVIER_API_KEY, config.SEARCH_QUERY, count=25)
         elsevier_yesterday = [p for p in elsevier_results if p['pub_date_obj'].date() == yesterday_date]
 
         if test_mode and not elsevier_yesterday and elsevier_results:

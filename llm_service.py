@@ -68,7 +68,7 @@ def fetch_elsevier(api_key, query, since_date=None, count=5):
     }
     params = {
         "query": f"TITLE-ABS-KEY({query})",
-        "count": count,
+        "count": min(count, 25),
         "sort": "-pubdate",
         "view": "STANDARD" # Fallback to STANDARD as COMPLETE failed earlier
     }
